@@ -16,7 +16,7 @@ const MusicListScreen = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.screen_container}>
+      <View style={styles.screenContainer}>
         <TextInput
           value={searchKeywords}
           onChangeText={handleSearch}
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.white,
   },
-  screen_container: {
+  screenContainer: {
     padding: 10,
   },
   search: {

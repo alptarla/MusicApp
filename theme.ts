@@ -5,5 +5,6 @@ export default {
     border: "#e0e0e0",
     text: "#494949",
     mutedText: "#707070",
+    warning: "#fbc02d",
   },
 };

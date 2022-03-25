@@ -18,7 +18,7 @@ const MusicCard: React.FC<Props> = ({
       source={{ uri: music.imageUrl }}
       style={styles.image}
     />
-    <View style={styles.card_content}>
+    <View style={styles.cardContent}>
       <Text style={styles.title}>{music.title}</Text>
       <Text style={styles.artist}>{music.artist}</Text>
     </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     marginRight: 10,
   },
-  card_content: {
+  cardContent: {
     flex: 1,
   },
   title: {

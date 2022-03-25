@@ -7,6 +7,16 @@ import theme from "../theme";
 const BookmarksScreen = () => {
   const { bookmarks } = useMusic();
 
+  if (!bookmarks.length) {
+    return (
+      <View style={styles.screen}>
+        <View style={styles.warning}>
+          <Text style={styles.warningText}>No bookmarks yet!</Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <MusicList data={bookmarks} />
@@ -21,5 +31,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.white,
     padding: 10,
+  },
+  warning: {
+    backgroundColor: theme.colors.warning,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  warningText: {
+    color: theme.colors.white,
+    fontWeight: "bold",
   },
 });
