@@ -1,13 +1,13 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Icon from "@expo/vector-icons/MaterialIcons";
-interface IProps {
+interface Props {
   music: IMusic;
   isBookmarked: boolean;
   onToggleBookmark: (music: IMusic) => void;
 }
 
-const MusicCard: React.FC<IProps> = ({
+const MusicCard: React.FC<Props> = ({
   music,
   isBookmarked = false,
   onToggleBookmark,
