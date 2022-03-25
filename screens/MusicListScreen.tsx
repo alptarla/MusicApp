@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useMusic from "../hooks/useMusic";
 import MusicList from "../components/MusicList";
+import theme from "../theme";
 
 const MusicListScreen = () => {
   const [searchKeywords, setSearchKeywords] = useState("");
@@ -21,6 +22,7 @@ const MusicListScreen = () => {
           onChangeText={handleSearch}
           placeholder="Search music..."
           style={styles.search}
+          placeholderTextColor={theme.colors.text}
         />
         <MusicList data={musicList} />
       </View>
@@ -33,7 +35,7 @@ export default MusicListScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: theme.colors.white,
   },
   screen_container: {
     padding: 10,
@@ -42,7 +44,8 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 20,
     padding: 10,
-    backgroundColor: "#eeeeee",
+    backgroundColor: theme.colors.border,
+    color: theme.colors.text,
     borderRadius: 5,
   },
 });

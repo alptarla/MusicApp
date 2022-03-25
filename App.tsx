@@ -5,6 +5,7 @@ import BookmarksScreen from "./screens/BookmarksScreen";
 import MusicListScreen from "./screens/MusicListScreen";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import MusicProvider from "./context/MusicProvider";
+import theme from "./theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,11 @@ const App = () => {
   return (
     <MusicProvider>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={() => ({
+            tabBarLabelStyle: { color: theme.colors.text },
+          })}
+        >
           <Tab.Screen
             options={{
               headerShown: false,
@@ -37,6 +42,7 @@ const App = () => {
             component={BookmarksScreen}
             options={{
               tabBarIcon: renderIcon("collections-bookmark"),
+              headerTintColor: theme.colors.text,
             }}
           />
         </Tab.Navigator>

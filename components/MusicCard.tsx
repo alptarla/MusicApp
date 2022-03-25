@@ -1,6 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Icon from "@expo/vector-icons/MaterialIcons";
+import theme from "../theme";
 interface Props {
   music: IMusic;
   isBookmarked: boolean;
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "#e0e0e0",
+    borderColor: theme.colors.border,
     borderRadius: 5,
   },
   image: {
@@ -58,10 +59,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 21,
     marginBottom: 3,
+    color: theme.colors.text,
   },
   artist: {
     fontWeight: "bold",
-    color: "#707070",
+    color: theme.colors.mutedText,
   },
   bookmark: {
     alignSelf: "flex-start",
