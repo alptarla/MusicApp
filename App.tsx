@@ -3,6 +3,7 @@ import {
   ListRenderItem,
   SafeAreaView,
   StyleSheet,
+  TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import musicData from "./music-data.json";
@@ -11,9 +12,15 @@ import MusicCard from "./components/MusicCard";
 const App = () => {
   const [musicList, setMusicList] = useState<IMusic[]>(musicData);
   const [bookmarks, setBookmarks] = useState<IMusic[]>([]);
+  const [searchKeywords, setSearchKeywords] = useState("");
 
   const checkIsBookmarked = (musicId: string) =>
     bookmarks.some((bookmark) => bookmark.id === musicId);
+
+  const filterMusicListByTitle = (title: string): IMusic[] => {
+    const musicTitleRegex = new RegExp(title, "i");
+    return musicData.filter((music) => music.title.match(musicTitleRegex));
+  };
 
   const handleToggleBookmark = (music: IMusic) => {
     if (checkIsBookmarked(music.id)) {
@@ -26,6 +33,13 @@ const App = () => {
     setBookmarks((prev) => [...prev, music]);
   };
 
+  const handleSearch = (searchText: string) => {
+    setSearchKeywords(searchText);
+
+    const newMusicList = filterMusicListByTitle(searchText);
+    setMusicList(newMusicList);
+  };
+
   const renderMusicCards: ListRenderItem<IMusic> = ({ item }) => (
     <MusicCard
       music={item}
@@ -36,6 +50,12 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
+      <TextInput
+        value={searchKeywords}
+        onChangeText={handleSearch}
+        placeholder="Search music..."
+        style={styles.search}
+      />
       <FlatList
         data={musicList}
         renderItem={renderMusicCards}
@@ -56,5 +76,12 @@ const styles = StyleSheet.create({
   },
   list: {
     width: "100%",
+  },
+  search: {
+    width: "100%",
+    marginBottom: 20,
+    padding: 10,
+    backgroundColor: "#eeeeee",
+    borderRadius: 5,
   },
 });
