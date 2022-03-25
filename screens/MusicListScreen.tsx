@@ -1,53 +1,17 @@
-import {
-  FlatList,
-  ListRenderItem,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import musicData from "../music-data.json";
-import MusicCard from "../components/MusicCard";
+import useMusic from "../hooks/useMusic";
+import MusicList from "../components/MusicList";
 
 const MusicListScreen = () => {
-  const [musicList, setMusicList] = useState<IMusic[]>(musicData);
-  const [bookmarks, setBookmarks] = useState<IMusic[]>([]);
   const [searchKeywords, setSearchKeywords] = useState("");
-
-  const checkIsBookmarked = (musicId: string) =>
-    bookmarks.some((bookmark) => bookmark.id === musicId);
-
-  const filterMusicListByTitle = (title: string): IMusic[] => {
-    const musicTitleRegex = new RegExp(title, "i");
-    return musicData.filter((music) => music.title.match(musicTitleRegex));
-  };
-
-  const handleToggleBookmark = (music: IMusic) => {
-    if (checkIsBookmarked(music.id)) {
-      setBookmarks((prev) =>
-        prev.filter((bookmark) => bookmark.id !== music.id)
-      );
-      return;
-    }
-
-    setBookmarks((prev) => [...prev, music]);
-  };
+  const { musicList, filterMusicListByTitle } = useMusic();
 
   const handleSearch = (searchText: string) => {
     setSearchKeywords(searchText);
-
-    const newMusicList = filterMusicListByTitle(searchText);
-    setMusicList(newMusicList);
+    filterMusicListByTitle(searchText);
   };
-
-  const renderMusicCards: ListRenderItem<IMusic> = ({ item }) => (
-    <MusicCard
-      music={item}
-      onToggleBookmark={handleToggleBookmark}
-      isBookmarked={checkIsBookmarked(item.id)}
-    />
-  );
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -58,10 +22,7 @@ const MusicListScreen = () => {
           placeholder="Search music..."
           style={styles.search}
         />
-        <FlatList
-          data={musicList}
-          renderItem={renderMusicCards}
-        />
+        <MusicList data={musicList} />
       </View>
     </SafeAreaView>
   );
