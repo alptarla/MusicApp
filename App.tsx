@@ -3,8 +3,19 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import BookmarksScreen from "./screens/BookmarksScreen";
 import MusicListScreen from "./screens/MusicListScreen";
+import Icon from "@expo/vector-icons/MaterialIcons";
 
 const Tab = createBottomTabNavigator();
+
+const renderIcon = (iconName: any) => {
+  return ({ size, color }: { size: number; color: string }) => (
+    <Icon
+      name={iconName}
+      size={size}
+      color={color}
+    />
+  );
+};
 
 const App = () => {
   return (
@@ -13,6 +24,8 @@ const App = () => {
         <Tab.Screen
           options={{
             headerShown: false,
+            tabBarIcon: renderIcon("music-video"),
+            tabBarLabel: "Music List",
           }}
           name="MusicList"
           component={MusicListScreen}
@@ -20,6 +33,9 @@ const App = () => {
         <Tab.Screen
           name="Bookmarks"
           component={BookmarksScreen}
+          options={{
+            tabBarIcon: renderIcon("collections-bookmark"),
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>
