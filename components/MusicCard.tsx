@@ -1,24 +1,37 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-
+import Icon from "@expo/vector-icons/MaterialIcons";
 interface IProps {
   music: IMusic;
+  isBookmarked: boolean;
+  onToggleBookmark: (music: IMusic) => void;
 }
 
-const MusicCard: React.FC<IProps> = ({ music }) => {
-  return (
-    <View style={styles.card}>
-      <Image
-        source={{ uri: music.imageUrl }}
-        style={styles.image}
-      />
-      <View style={styles.card_content}>
-        <Text style={styles.title}>{music.title}</Text>
-        <Text style={styles.artist}>{music.artist}</Text>
-      </View>
+const MusicCard: React.FC<IProps> = ({
+  music,
+  isBookmarked = false,
+  onToggleBookmark,
+}) => (
+  <View style={styles.card}>
+    <Image
+      source={{ uri: music.imageUrl }}
+      style={styles.image}
+    />
+    <View style={styles.card_content}>
+      <Text style={styles.title}>{music.title}</Text>
+      <Text style={styles.artist}>{music.artist}</Text>
     </View>
-  );
-};
+    <Pressable
+      onPress={() => onToggleBookmark(music)}
+      style={styles.bookmark}
+    >
+      <Icon
+        name={isBookmarked ? "bookmark" : "bookmark-outline"}
+        size={24}
+      />
+    </Pressable>
+  </View>
+);
 
 export default MusicCard;
 
@@ -49,5 +62,9 @@ const styles = StyleSheet.create({
   artist: {
     fontWeight: "bold",
     color: "#707070",
+  },
+  bookmark: {
+    alignSelf: "flex-start",
+    margin: 5,
   },
 });
